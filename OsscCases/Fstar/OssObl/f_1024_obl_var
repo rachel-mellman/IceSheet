@@ -1,0 +1,19 @@
+srcfolder  Obliquity_exp/obl_xo00
+destfolder F_exp1024_obl_var
+trialname  semi_obl
+
+file   sun.in
+dLuminosity [1.2206776e27,8.787982e26 , n32] lum
+dMass 1.48
+
+file   earth.in
+dObliquity [45, 90, n32] obl
+dSemi 1.68
+bForceObliq 1
+dObliqAmp 20
+dObliqPer 40000
+dIceAlbedo 0.63
+
+file   vpl.in
+dStopTime 10e5
+dOutputTime 10000

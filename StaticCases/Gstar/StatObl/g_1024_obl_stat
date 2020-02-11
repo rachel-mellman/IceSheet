@@ -1,0 +1,12 @@
+srcfolder  ../../Obliquity_exp/obl_xo00
+destfolder G_exp1024_obl_stat
+trialname  semi_obl
+#To find L2 = L1 * (a1**2/a2**2)
+file   sun.in
+dLuminosity [4.2323005e26, 3.1011589e26, n32] lum
+
+file   earth.in
+dObliquity [45, 90, n32] obl
+dSemi 1.02
+
+file   vpl.in
