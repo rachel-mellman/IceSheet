@@ -49,7 +49,7 @@ line1 = mlines.Line2D([],[],color = colorz[1],linewidth=3,label = labels[1])
 line2 = mlines.Line2D([],[],color = colorz[2],linewidth=3,label = labels[2])
 
 plt.legend(handles = [line0,line1,line2], loc='upper left')
-
+plt.figure(figsize=(9,6.5))
 plt.ylabel("Stellar Flux relative to Earth", fontsize=16)
 plt.xlabel("Obliquity", fontsize=16)
 plt.xlim(40,90)
