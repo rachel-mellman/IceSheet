@@ -15,7 +15,7 @@ dLongP       0                          #pericenter, wrt Earth's position at spr
 #                                        note that this is the typical value +180, 
 #                                        since that one is solar position
 dDynEllip    0.0                        #shape of planet (0 = a sphere)
-dPrecA 0.0                              #orientation of spin axis
+dPrecA 221.97697462746697
 
 #_______addition disorb/distrot parameters (leave these alone for now)__________________
 #dInc         5e-5                      #inclination of orbit

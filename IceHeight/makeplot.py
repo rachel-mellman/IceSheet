@@ -18,21 +18,24 @@ import matplotlib.lines as mlines
 # avg is plotted in black
 #do this for FGK
 
-dest = ['/media/caitlyn/Data_Drive/Projects/IceBelt/F_Cases/F_Monte_Carlo/','/media/caitlyn/Data_Drive/Projects/IceBelt/G_Cases/G_Monte_Carlo/','/media/caitlyn/Data_Drive/Projects/IceBelt/K_Cases/K_Monte_Carlo/']
+dest = ['/media/caitlyn/Data_Drive1/Projects/IceBelt/F_Cases/F_Monte_Carlo/','/media/caitlyn/Data_Drive1/Projects/IceBelt/G_Cases/G_Monte_Carlo/','/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_Monte_Carlo/']
+star = ['F Star','G Star','K Star']
 num = 1000
-# case = next(os.walk(os.path.join(dest,'.')))[1][0]
-# os.chdir(dest)
-# num = int(num)
-# folders = sp.check_output("echo " + dest + case + "/semi_obl*", shell=True).split()
 
 fig, axs = plt.subplots(3,1,figsize=(9,6.5))
-fig.subplots_adjust(wspace=0.5)
+fig.subplots_adjust(hspace=0.4)
 
 for x in range(len(dest)):
+    try:
+        case = next(os.walk(os.path.join(dest[x],'.')))[1][0]
+    except StopIteration:
+            pass
 
-    case = next(os.walk(os.path.join(dest[x],'.')))[1][0]
     os.chdir(dest[x])
     num = int(num)
+    data = np.zeros(151)
+    avg_count = np.zeros(151)
+    icecount = 0
     folders = sp.check_output("echo " + dest[x] + case + "/semi_obl*", shell=True).split()
 
     snowball = np.zeros(len(folders))
@@ -81,24 +84,37 @@ for x in range(len(dest)):
             nlats = len(lats)
             ntimes = len(body.Time)
 
+            icecount += 1
             ice = np.reshape(body.IceHeight,(ntimes,nlats))
             ice_last = ice[-1]
-            indi = axs[x].plot(lats,ice_last.T, color = 'gray', alpha = 0.75)
 
-    avg_ice = (sum(ice_last.T)/len(ice_last.T))
-    avg_lats = (sum(lats)/len(lats))
+            data += ice_last.T
+            indi = axs[x].plot(lats,ice_last.T, color = 'gray', alpha = 0.5)
 
-    avg = axs[x].plot(avg_lats,avg_ice.T, color = 'black', linewidth = 5)
+    for z in range(data.size):
+        avg_count[z] = data[z]/icecount
 
-    indi_leg = mlines.Line2D([],[],color = 'gray',linewidth=3 ,label = 'Inidivdual Cases', alpha = 0.75)
-    avg_leg = mlines.Line2D([],[],color = 'black',linewidth=5,label = 'Average')
+    avg_plot = axs[x].plot(lats,avg_count, color = 'black', linewidth = 4)
 
-    axs[0].set_xlim(-20,20)
-    axs[1].set_xlim(-40,40)
-    axs[2].set_xlim(-60,60)
-    axs[x].set_xlabel("Latitude")
-    axs[x].set_ylabel("Ice Height [m]")
-    axs[x].legend(handles = [indi_leg,avg_leg], loc = 'upper right')
+    indi_leg = mlines.Line2D([],[],color = 'gray',linewidth = 3 ,label = 'Indivdual Cases', alpha = 0.5)
+    avg_leg = mlines.Line2D([],[],color = 'black',linewidth = 4,label = 'Average')
 
+    axs[0].set_xlim(-40,40)
+    axs[1].set_xlim(-70,70)
+    axs[2].set_xlim(-80,80)
+
+    axs[0].text(-33,2400,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    axs[1].text(-58,3400,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    axs[2].text(-65.75,4000,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+
+
+    axs[x].set_xlabel("Latitude", fontsize = 12)
+    axs[x].set_ylabel("Ice Height [m]", fontsize = 12)
+
+    axs[2].legend(handles = [indi_leg,avg_leg], loc = 'upper left',fontsize=12, bbox_to_anchor=(0., -0.5, 1., .102),ncol=4, mode="expand", borderaxespad=0.)
+
+
+plt.tight_layout()
+#plt.savefig("/media/caitlyn/Data_Drive1/Projects/IceBelt/IceHeight.png")
 plt.show()
 plt.close()
