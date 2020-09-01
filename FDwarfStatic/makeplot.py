@@ -11,16 +11,11 @@ import matplotlib.patches as mpatches
 
 
 #Variable List
-dest = "F_exp10000"
+dest = "FDwarfStatic"
 num = 100
-
 L_sun = 3.846e26
 a_earth = 1
-
-plt.ylabel("Stellar Flux relative to Earth",fontsize = 16)
-plt.xlabel("Starting Obliquity",fontsize = 16)
-plt.ylim(0.835,1.01)
-plt.xlim(45,90)
+listf = "list_FDwarfStatic"
 
 if os.path.exists(listf):
     lum0, obliq0, semi0, albedo_f, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree = np.loadtxt(
@@ -43,9 +38,9 @@ iceFree = np.reshape(iceFree, (num, num))
 S = (lum0 / (semi0**2)) / (L_sun / (a_earth**2))
 
 plt.figure(figsize=(9,6.5))
-plt.ylabel("Stellar Flux relative to Earth", fontsize=16)
-plt.xlabel("Obliquity", fontsize=16)
-plt.ylim(0.92,1)
+plt.ylabel("Instellation [Earth]", fontsize=16)
+plt.xlabel(r'Obliquity [$^\circ$]', fontsize=16)
+plt.ylim(0.925,1)
 plt.xlim(50, 90)
 
 iFF = plt.contourf(obliq0, S, iceFree, [0, 1], colors = '#1321d8')

@@ -7,10 +7,12 @@ dRotPeriod   -1.00000                   #rotation period (minus = days)
 dObliquity 89.08019792648102
 bForceObliq 1                           #forces osc oblquity (0 = no, 1 = yes)
 dObliqPer 3923.693378687558
+dObliqAmp      8.56745485134512
 dSemi 1.02
 dEcc 0.12794507865182445
 bForceEcc 1                             #forces osc eccentrisity (0 = no, 1 = yes)
 dEccPer 44655.667610971985
+dEccAmp 0.02939242205019591
 dLongP       0                          #pericenter, wrt Earth's position at spring equinox     
 #                                        note that this is the typical value +180, 
 #                                        since that one is solar position
@@ -70,5 +72,3 @@ saOutputOrder    Time PrecA -TGlobal AlbedoGlobal -FluxOutGlobal $
 saGridOutput     Time -Latitude -TempLat AlbedoLat -AnnInsol -FluxIn -FluxOut IceMass -IceHeight DIceMassDt $
   -IceFlow -BedrockH -TempMaxLat -TempMinLat -FluxMerid -DivFlux 
 
-dObliqAmp      8.56745485134512
-dEccAmp      0.02939242205019591

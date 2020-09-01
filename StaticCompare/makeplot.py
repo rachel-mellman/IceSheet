@@ -10,15 +10,12 @@ import scipy.ndimage
 from matplotlib.pyplot import figure
 import matplotlib.lines as mlines
 
-vplred = '#C91111'
-vplorg = '#E09401'
-vpllbl = '#13AED5'
-vpldbl = '#1321D8'
-vplpur = '#642197'
 num = 100
-data = ["list_K_exp10000","list_Sol_exp10000","list_F_exp10000"]
+data = ['../KDwarfStatic/list_KDwarfStatic','../GDwarfStatic/list_GDwarfStatic','../FDwarfStatic/list_FDwarfStatic']
 colorz = [vpl.colors.red,vpl.colors.orange,vpl.colors.pale_blue]
 labels = ['K Dwarf','G Dwarf','F Dwarf']
+
+plt.figure(figsize=(9,6.5))
 
 for i in range(len(data)):
 
@@ -49,12 +46,17 @@ line1 = mlines.Line2D([],[],color = colorz[1],linewidth=3,label = labels[1])
 line2 = mlines.Line2D([],[],color = colorz[2],linewidth=3,label = labels[2])
 
 plt.legend(handles = [line0,line1,line2], loc='upper left')
-plt.figure(figsize=(9,6.5))
-plt.ylabel("Stellar Flux relative to Earth", fontsize=16)
-plt.xlabel("Obliquity $^\circ$", fontsize=16)
+plt.ylabel('Instellation [Earth]', fontsize=16)
+plt.xlabel(r'Obliquity [$^\circ$]', fontsize=16)
 plt.xlim(40,90)
 plt.ylim(0.85,1)
 
-plt.savefig("StaticCompare.pdf")
+plt.tight_layout()
+
+if (sys.argv[1] == 'pdf'):
+    plt.savefig('StaticCompare' + '.pdf')
+if (sys.argv[1] == 'png'):
+    plt.savefig('StaticCompare' + '.png')
+
 plt.show()
 plt.close()

@@ -44,7 +44,7 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     raise Exception("Error: cannot plot multiple files when orbit = True")
 
 
-  fig = plt.figure(figsize=(9,6.5))
+  fig = plt.figure(figsize=(9,8))
   fig.subplots_adjust(wspace=0.5,hspace = 0.5)
 
   for ii in np.arange(nfiles):
@@ -109,15 +109,11 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     ax1 = plt.subplot(4,2,1)
     pos = ax1.figbox.get_points()
     c = plt.contourf(body.Time,lats,temp.T,cmap='plasma')
-    plt.ylabel('Latitude', fontsize = 10)
+    plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
     plt.title(r'Surface Temp [$^{\circ}$C]', fontsize = 12)
-    plt.ylim(-90,90)
+    plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xticks(fontsize = 9)
-    if xrange == False:
-      left = 0
-    else:
-      left = xrange[0]
     if xrange:
       plt.xlim(xrange)
     cbar = plt.colorbar(c,cax=plt.axes([pos[1,0]+0.01,pos[0,1],0.01,pos[1,1]-pos[0,1]]))
@@ -128,9 +124,9 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     ax2 = plt.subplot(4,2,3)
     pos = ax2.figbox.get_points()
     c = plt.contourf(body.Time,lats,alb.T,cmap = 'Blues_r')
-    plt.ylabel('Latitude', fontsize = 10)
-    plt.title('Albedo (TOA)', fontsize = 12)
-    plt.ylim(-90,90)
+    plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
+    plt.title('Albedo [TOA]', fontsize = 12)
+    plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xticks(fontsize = 9)
     if xrange:
@@ -144,9 +140,9 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     ax3 = plt.subplot(4,2,5)
     pos = ax3.figbox.get_points()
     c = plt.contourf(body.Time,lats,ice.T,cmap='Blues_r')
-    plt.ylabel('Latitude', fontsize = 10)
+    plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
     plt.title('Ice sheet height [m]', fontsize = 12)
-    plt.ylim(-90,90)
+    plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xticks(fontsize = 9)
     if xrange:
@@ -160,9 +156,9 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     ax4 = plt.subplot(4,2,7)
     pos = ax4.figbox.get_points()
     c = plt.contourf(body.Time,lats,brock.T,cmap='Reds_r')
-    plt.ylabel('Latitude', fontsize = 10)
+    plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
     plt.title('Bedrock height [m]', fontsize = 12)
-    plt.ylim(-90,90)
+    plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xlabel('Time [years]',fontsize = 10)
     plt.xticks(fontsize = 9)
@@ -176,9 +172,9 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     ax5 = plt.subplot(4,2,2)
     pos = ax5.figbox.get_points()
     c = plt.contourf(body.Time,lats,insol.T,cmap='plasma')
-    plt.ylabel('Latitude', fontsize = 10)
+    plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
     plt.title(r'Annual average insolation [W/m$^2$]', fontsize = 12)
-    plt.ylim(-90,90)
+    plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xticks(fontsize = 9)
     if xrange:
@@ -191,7 +187,6 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     plt.plot(body.Time,obl,linestyle = 'solid',marker='None',color='darkblue',linewidth =2)
     plt.ylabel(r'Obliquity [$^\circ$]', fontsize = 10)
     plt.yticks(fontsize = 9)
-    plt.title(r'Obliquity [$^\circ$]', fontsize = 12 )
     plt.xticks(fontsize = 9)
 
     if xrange:
@@ -200,7 +195,6 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     #eccentricity
     plt.subplot(4,2,6)
     plt.plot(body.Time,ecc,linestyle = 'solid',marker='None',color='darkorchid',linewidth =2)
-    plt.title('Eccentricity', fontsize = 12)
     plt.ylabel('Eccentricity', fontsize = 10)
     plt.xticks(fontsize = 9)
     plt.yticks(fontsize = 9)
@@ -211,7 +205,6 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     plt.subplot(4,2,8)
     plt.plot(body.Time,esinv,linestyle = 'solid',marker='None',color='salmon',linewidth=2)
     plt.ylabel('COPP', fontsize = 10)
-    plt.title('COPP', fontsize = 12)
     plt.xlabel('Time [years]', fontsize = 10)
     plt.xticks(fontsize = 9)
     plt.yticks(fontsize = 9)
@@ -222,9 +215,9 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
       dir[ii] = 'cwd'
 
     if (sys.argv[1] == 'pdf'):
-        plt.savefig('Evolve_Example.pdf', dpi=300)
+        plt.savefig('Evolve_Example.pdf')
     if (sys.argv[1] == 'png'):
-        plt.savefig('Evolve_Example.png', dpi=300)
+        plt.savefig('Evolve_Example.png')
     if show:
         plt.show()
     else:
@@ -232,4 +225,4 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
 
 #makes the plots
 print("Making evolution plot.")
-clim_evol('earth', orbit=True)
+clim_evol('earth', orbit=True,xrange = (0,250000))

@@ -17,8 +17,8 @@ style = ["solid","dashed", "dotted", "dashdot"]
 labels = ["e=0","e=0.1","e=0.2","e=0.3"]
 star = ["K Star", "G Star", "F Star"]
 
-fig, axs = plt.subplots(3,1,figsize=(9,7))
-#fig.subplots_adjust(hspace=0.1)
+fig, axs = plt.subplots(3,1,figsize=(6.5,9))
+fig.subplots_adjust(top=0.913,bottom=0.079,left=0.14,right=0.952,hspace=0.35,wspace=0.13)
 
 for i in range(len(dest)):
     for ii in range(len(dest[i])):
@@ -27,7 +27,7 @@ for i in range(len(dest)):
             case = next(os.walk(os.path.join(dest[i][ii],'.')))[1][0]
         except StopIteration:
             pass
-        print(dest[i][ii])
+
         os.chdir(dest[i][ii])
         num = int(num)
         folders = sp.check_output("echo " + dest[i][ii] + case + "/semi_obl*", shell=True).split()
@@ -112,14 +112,20 @@ for i in range(len(dest)):
     e2 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[2],linestyle = style[2])
     e3 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[3],linestyle = style[3])
 
-    axs[0].text(43.75,0.9875,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 11)
-    axs[1].text(48.5,0.99,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 11)
-    axs[2].text(53,0.995,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    #axs[0].text(46,0.988,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 12)
+    #axs[1].text(50.5,0.9925,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 12)
+    #axs[2].text(54.75,0.995,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 12)
 
+    axs[2].set_yticks([0.925,0.95,0.975,1])
 
-    axs[2].legend(handles = [e0,e1,e2,e3], loc = 'upper left',fontsize=12, bbox_to_anchor=(0., -0.45, 1., .102),ncol=4, mode="expand", borderaxespad=0.)
-    axs[i].set_ylabel("Instellation", fontsize=12)
-    axs[2].set_xlabel("Obliquity [$^\circ$]", fontsize=12)
+    axs[0].set_title("K Star", fontsize = 16)
+    axs[1].set_title("G Star", fontsize = 16)
+    axs[2].set_title("F Star", fontsize = 16)
+
+    axs[0].legend(handles = [e0,e1,e2,e3], fontsize=14, loc = 'upper left', bbox_to_anchor=(0, 1.25, 1, 0.102),ncol=4, mode="expand", borderaxespad=0)
+    #bbox_to_anchor=(0., 1.2, 1., .102)
+    axs[1].set_ylabel("Instellation [Earth]", fontsize=14)
+    axs[2].set_xlabel("Obliquity [$^\circ$]", fontsize=14)
 
     axs[0].set_xlim(40,90)
     axs[1].set_xlim(45,90)
@@ -129,8 +135,12 @@ for i in range(len(dest)):
     axs[1].set_ylim(0.88,1)
     axs[2].set_ylim(0.92,1)
 
-    plt.tight_layout()
+plt.tight_layout()
 
-plt.savefig("/media/caitlyn/Data_Drive1/Projects/IceBelt/EccCompare.pdf")
+if (sys.argv[1] == 'pdf'):
+    plt.savefig('EccCompare' + '.pdf')
+if (sys.argv[1] == 'png'):
+    plt.savefig('EccCompare' + '.png')
+
 plt.show()
 plt.close()

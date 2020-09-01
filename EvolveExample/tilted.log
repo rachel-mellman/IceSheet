@@ -1,7 +1,7 @@
 -------- Log file tilted.log -------
 
 Executable: vplanet
-Version: v1.0.0-514-g9c18f6c0c8821cab44e5ba7ffffc94eadb80d820
+Version: v1.0.0-651-gdfe58882b351c2d8ac19598247d5a93ff418e1ab
 System Name: tilted
 Primary Input File: vpl.in
 Body File #1: sun.in
@@ -20,7 +20,7 @@ Integration Method: Runge-Kutta4
 Direction: Forward
 Time Step: 3.155760e+07
 Stop Time: 3.155760e+13
-Output Interval: 3.155760e+11
+Output Interval: 3.155760e+10
 Use Variable Timestep: Yes
 dEta: 0.100000
 Minimum Value of ecc and obl: 0.000000
@@ -154,11 +154,11 @@ Grid Output Order: Time[year] Latitude[Degrees] TempLat[C] AlbedoLat[] AnnInsol[
 ---- FINAL SYSTEM PROPERTIES ----
 (Age) System Age [sec]: 3.155760e+13 
 (Time) Simulation Time [sec]: 3.155760e+13 
-(TotAngMom) Total Angular Momentum [kg*m^2/sec]: 1.501060e+42 
+(TotAngMom) Total Angular Momentum [kg*m^2/sec]: 1.501069e+42 
 (TotEnergy) Total System Energy [kg*m^2/sec^2]: -7.839372e+41 
 (PotEnergy) Body's non-orbital Potential Energy [kg*m^2/sec^2]: -7.839908e+41 
 (KinEnergy) Body's non-orbital Kinetic Energy [kg*m^2/sec^2]: 5.358704e+37 
-(DeltaTime) Average Timestep Over Last Output Interval [sec]: 2.608066e+09 
+(DeltaTime) Average Timestep Over Last Output Interval [sec]: 3.090852e+07 
 (Density) Average Density [kg/m^3]: 1.011156e+06 
 (LongP) Body's Longitude of pericenter [rad]: 3.926991 
 (LXUVTot) Total XUV Luminosity [kg*m^2/sec^2/(m^2*sec)]: 3.794673e+23 
@@ -200,40 +200,40 @@ Active Modules: POISE
 Module Bit Sum: 257
 Color: 000000
 (Mass) Mass [kg]: 5.971546e+24 
-(Obliquity) Obliquity [rad]: 1.623673 
+(Obliquity) Obliquity [rad]: 1.508161 
 (PrecA) Body's precession angle [rad]: 3.874229 
 (Radius) Radius [m]: 6.378100e+06 
 (RadGyra) Radius of Gyration []: 0.500000 
 (BodyType) Type of Body (0 == planet) []: 0.000000 
-(HZLimitDryRunaway) Semi-major axis of Dry Runaway HZ Limit [m]: 1.079016e+11 
+(HZLimitDryRunaway) Semi-major axis of Dry Runaway HZ Limit [m]: 1.079031e+11 
 (HZLimRecVenus) Recent Venus Habitable Zone Limit [m]: 1.111438e+11 
 (HZLimRunaway) Runaway Greenhouse Habitable Zone Limit [m]: 1.451326e+11 
 (HZLimMoistGreenhouse) Moist Greenhouse Habitable Zone Limit [m]: 1.470604e+11 
 (HZLimMaxGreenhouse) Maximum Greenhouse Habitable Zone Limit [m]: 2.492736e+11 
 (HZLimEarlyMars) Early Mars Habitable Zone Limit [m]: 2.719777e+11 
-(Instellation) Orbit-averaged INcident STELLar radiATION [kg*m^2/sec^2/(m^2*sec)]: 1309.971728 
-(Eccentricity) Orbital Eccentricity []: 0.140807 
+(Instellation) Orbit-averaged INcident STELLar radiATION [kg*m^2/sec^2/(m^2*sec)]: 1309.556688 
+(Eccentricity) Orbital Eccentricity []: 0.138583 
 (MeanMotion) Orbital Mean Motion [/sec]: 1.932716e-07 
 (OrbPeriod) Orbital Period [sec]: 3.250961e+07 
 (SemiMajorAxis) Semi-major Axis [m]: 1.525898e+11 
 -----POISE PARAMETERS (earth)------
-(TGlobal) Global mean temperature from POISE [C]: 6.407527 
-(AlbedoGlobal) Global mean bond albedo from POISE []: 0.372661 
-(FluxInGlobal) Global mean flux in (insol*(1-albedo)) from POISE [kg*m^2/sec^2/(m^2*sec)]: 216.391979 
-(FluxOutGlobal) Global mean flux out from POISE [W/m^2]: 216.691732 
-(TotIceMass) Global total ice mass in ice sheets [kg]: 1.144102e+20 
-(TotIceFlow) Global total ice flow in ice sheets (should = 0) [kg]: -4.577247e-12 
-(TotIceBalance) Global total ice balance in ice sheets (this time step) [kg]: -2.364181e-08 
+(TGlobal) Global mean temperature from POISE [C]: 6.509437 
+(AlbedoGlobal) Global mean bond albedo from POISE []: 0.372246 
+(FluxInGlobal) Global mean flux in (insol*(1-albedo)) from POISE [kg*m^2/sec^2/(m^2*sec)]: 216.491210 
+(FluxOutGlobal) Global mean flux out from POISE [W/m^2]: 216.904723 
+(TotIceMass) Global total ice mass in ice sheets [kg]: 1.065593e+20 
+(TotIceFlow) Global total ice flow in ice sheets (should = 0) [kg]: -9.009619e-13 
+(TotIceBalance) Global total ice balance in ice sheets (this time step) [kg]: -3.277795e-08 
 (SkipSeas) Is Seasonal model skipped due to RGH or snowball? []: 0.000000 
-(AreaIceCov) Fractional area ice covered []: 0.135099 
+(AreaIceCov) Fractional area ice covered []: 0.130596 
 (Latitude) Latitude. [Degrees]: 83.402352 
-(TempLat) Surface temperature by latitude. [C]: 21.403496 
-(AlbedoLat) Surface albedo by latitude. []: 0.361218 
-(AnnInsol) Annual insolation by latitude. [W/m^2]: 415.020772 
-(FluxMerid) Total meridional (northward) flux by latitude [PW]: -0.593806 
-(FluxIn) Incoming flux by latitude [W/m^2]: 287.452693 
-(FluxOut) Outgoing (spaceward) flux by latitude [W/m^2]: 248.033306 
-(DivFlux) Divergence of flux (flow into adjacent cells) by latitude [W/m^2]: 40.171704 
+(TempLat) Surface temperature by latitude. [C]: 21.436998 
+(AlbedoLat) Surface albedo by latitude. []: 0.361216 
+(AnnInsol) Annual insolation by latitude. [W/m^2]: 414.656810 
+(FluxMerid) Total meridional (northward) flux by latitude [PW]: -0.591152 
+(FluxIn) Incoming flux by latitude [W/m^2]: 287.282234 
+(FluxOut) Outgoing (spaceward) flux by latitude [W/m^2]: 248.103325 
+(DivFlux) Divergence of flux (flow into adjacent cells) by latitude [W/m^2]: 39.992108 
 (IceMass) Mass of ice sheets/area by latitude []: 0.000000 
 (IceHeight) Height of ice sheets [m]: 0.000000 
 (DIceMassDt) derivative of mass of ice sheets/area by latitude [m]: 0.000000 
@@ -241,19 +241,19 @@ Color: 000000
 (EnergyResL) Energy residual on land [kg*m^2/sec^2/(m^2*sec)]: -0.875366 
 (EnergyResW) Energy residual over water [kg*m^2/sec^2/(m^2*sec)]: 0.238817 
 (BedrockH) height/depth of bedrock [m]: 0.000000 
-(TempLandLat) Land surface temperature by latitude. [sec]: 286.834167 
-(TempWaterLat) Water surface temperature by latitude. [sec]: 298.302847 
-(AlbedoLandLat) Land surface albedo by latitude. []: 0.510424 
-(AlbedoWaterLat) Water surface albedo by latitude. []: 0.284354 
-(TempMinLat) Minimum surface temperature over a year by latitude. [C]: -1.687697 
-(TempMaxLat) Maximum surface temperature over a year by latitude. [C]: 60.126875 
+(TempLandLat) Land surface temperature by latitude. [sec]: 286.896599 
+(TempWaterLat) Water surface temperature by latitude. [sec]: 298.321446 
+(AlbedoLandLat) Land surface albedo by latitude. []: 0.510320 
+(AlbedoWaterLat) Water surface albedo by latitude. []: 0.284405 
+(TempMinLat) Minimum surface temperature over a year by latitude. [C]: -1.626968 
+(TempMaxLat) Maximum surface temperature over a year by latitude. [C]: 59.985825 
 (Snowball) Is the planet in a snowball state? []: 0.000000 
 (PlanckBAvg) Annually averaged Planck B coeff []: 2.090000 
-(IceAccum) ice growth per orbit (accumulation only) []: 0.438864 
-(IceAblate) ice decay per orbit (ablation only) []: -0.253669 
-(TempMaxLand) Maximum surface temperature on land [sec]: 386.883659 
-(TempMaxWater) Maximum surface temperature on water [sec]: 308.958292 
-(PeakInsol) Peak insolation by latitude. [kg*m^2/sec^2/(m^2*sec)]: 1627.771296 
+(IceAccum) ice growth per orbit (accumulation only) []: 0.448838 
+(IceAblate) ice decay per orbit (ablation only) []: -0.242721 
+(TempMaxLand) Maximum surface temperature on land [sec]: 386.479181 
+(TempMaxWater) Maximum surface temperature on water [sec]: 308.954850 
+(PeakInsol) Peak insolation by latitude. [kg*m^2/sec^2/(m^2*sec)]: 1619.753743 
 (IceCapNorthLand) Does the planet have a northern polar ice cap on land? []: 0.000000 
 (IceCapNorthSea) Does the planet have a northern polar sea ice cap []: 0.000000 
 (IceCapSouthLand) Does the planet have a southern polar ice cap on land? []: 0.000000 
@@ -267,7 +267,7 @@ Color: 000000
 (IceCapNorthLatSea) Southernmost extent of northern sea ice cap. [rad]: 100.000000 
 (IceCapSouthLatLand) Northernmost extent of southern land ice cap. [rad]: 100.000000 
 (IceCapSouthLatSea) Northernmost extent of southern sea ice cap. [rad]: 100.000000 
-(IceBeltNorthLatLand) Northernmost extent of land ice belt. [rad]: 0.365714 
+(IceBeltNorthLatLand) Northernmost extent of land ice belt. [rad]: 0.337496 
 (IceBeltNorthLatSea) Northernmost extent of sea ice belt. [rad]: 100.000000 
 (IceBeltSouthLatLand) Southernmost extent of land ice belt. [rad]: -0.452356 
 (IceBeltSouthLatSea) Southernmost extent of sea ice belt. [rad]: 100.000000 

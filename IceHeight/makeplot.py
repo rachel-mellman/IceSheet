@@ -9,21 +9,13 @@ import sys
 import scipy.ndimage
 from matplotlib.pyplot import figure
 import matplotlib.lines as mlines
-# check if case has ice belt land
-# if it does then it needs to get the ice sheet height
-# gets the Latitude distance and finds the middle
-# once all the cases have been looked at, find the avg ice sheet height
-# plot lat (x axis) vs ice sheet height (y axis)
-# each inidivdual case is plotted in grey
-# avg is plotted in black
-#do this for FGK
 
 dest = ['/media/caitlyn/Data_Drive1/Projects/IceBelt/F_Cases/F_Monte_Carlo/','/media/caitlyn/Data_Drive1/Projects/IceBelt/G_Cases/G_Monte_Carlo/','/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_Monte_Carlo/']
 star = ['F Star','G Star','K Star']
 num = 1000
 
-fig, axs = plt.subplots(3,1,figsize=(9,6.5))
-fig.subplots_adjust(hspace=0.4)
+fig, axs = plt.subplots(3,1,figsize=(9,7))
+fig.subplots_adjust(hspace=0.5)
 
 for x in range(len(dest)):
     try:
@@ -88,33 +80,39 @@ for x in range(len(dest)):
             ice = np.reshape(body.IceHeight,(ntimes,nlats))
             ice_last = ice[-1]
 
-            data += ice_last.T
-            indi = axs[x].plot(lats,ice_last.T, color = 'gray', alpha = 0.5)
+            data += ((ice_last.T)/1000)
+            indi = axs[x].plot(lats,((ice_last.T)/1000), color = 'gray', alpha = 0.25)
 
     for z in range(data.size):
         avg_count[z] = data[z]/icecount
 
-    avg_plot = axs[x].plot(lats,avg_count, color = 'black', linewidth = 4)
+    #avg_plot = axs[x].plot(lats,avg_count, color = 'black', linewidth = 4)
 
     indi_leg = mlines.Line2D([],[],color = 'gray',linewidth = 3 ,label = 'Indivdual Cases', alpha = 0.5)
     avg_leg = mlines.Line2D([],[],color = 'black',linewidth = 4,label = 'Average')
 
-    axs[0].set_xlim(-40,40)
-    axs[1].set_xlim(-70,70)
-    axs[2].set_xlim(-80,80)
+    axs[x].set_xlim(-90,90)
 
-    axs[0].text(-33,2400,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 11)
-    axs[1].text(-58,3400,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 11)
-    axs[2].text(-65.75,4000,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    # axs[0].text(-33,2400,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    # axs[1].text(-58,3400,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 11)
+    # axs[2].text(-65.75,4000,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 11)
 
+    axs[0].set_title("K Star", fontsize = 16)
+    axs[1].set_title("G Star", fontsize = 16)
+    axs[2].set_title("F Star", fontsize = 16)
 
-    axs[x].set_xlabel("Latitude", fontsize = 12)
-    axs[x].set_ylabel("Ice Height [m]", fontsize = 12)
+    axs[x].set_xlabel(r'Latitude [$^\circ$]', fontsize = 12)
+    axs[x].set_ylabel("Ice Height [km]", fontsize = 12)
 
-    axs[2].legend(handles = [indi_leg,avg_leg], loc = 'upper left',fontsize=12, bbox_to_anchor=(0., -0.5, 1., .102),ncol=4, mode="expand", borderaxespad=0.)
+    axs[0].legend(handles = [indi_leg,avg_leg], fontsize=14, loc = 'upper left', bbox_to_anchor=(0, 1.75, 1, 0.102),ncol=2, mode="expand", borderaxespad=0)
 
 
 plt.tight_layout()
-#plt.savefig("/media/caitlyn/Data_Drive1/Projects/IceBelt/IceHeight.png")
+os.chdir('IceBelt/IceHeight')
+if (sys.argv[1] == 'pdf'):
+    plt.savefig('IceHeight' + '.pdf')
+if (sys.argv[1] == 'png'):
+    plt.savefig('IceHeight' + '.png')
+
 plt.show()
 plt.close()
