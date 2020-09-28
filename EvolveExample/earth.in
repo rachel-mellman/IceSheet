@@ -4,20 +4,18 @@ saModules   poise                       #what vplanet modules you want to use
 dMass        3.00316726e-06             #mass of planet
 dRadius      -1.00                      #radius (not important right now)
 dRotPeriod   -1.00000                   #rotation period (minus = days)
-dObliquity 89.08019792648102
+dObliquity 90.51131999840801
 bForceObliq 1                           #forces osc oblquity (0 = no, 1 = yes)
-dObliqPer 3923.693378687558
-dObliqAmp      8.56745485134512
-dSemi 1.02
-dEcc 0.12794507865182445
+dObliqPer 67823.01681595219
+dSemi 1.0313366226941603
+dEcc 0.0771300465183769
 bForceEcc 1                             #forces osc eccentrisity (0 = no, 1 = yes)
-dEccPer 44655.667610971985
-dEccAmp 0.02939242205019591
+dEccPer 53325.820197192865
 dLongP       0                          #pericenter, wrt Earth's position at spring equinox     
 #                                        note that this is the typical value +180, 
 #                                        since that one is solar position
-dDynEllip    0.0                        #shape of planet (0 = a sphere)
-dPrecA 221.97697462746697
+#dDynEllip    0.0                        #shape of planet (0 = a sphere)
+dPrecA 232.63352803778562
 
 #_______addition disorb/distrot parameters (leave these alone for now)__________________
 #dInc         5e-5                      #inclination of orbit
@@ -72,3 +70,5 @@ saOutputOrder    Time PrecA -TGlobal AlbedoGlobal -FluxOutGlobal $
 saGridOutput     Time -Latitude -TempLat AlbedoLat -AnnInsol -FluxIn -FluxOut IceMass -IceHeight DIceMassDt $
   -IceFlow -BedrockH -TempMaxLat -TempMinLat -FluxMerid -DivFlux 
 
+dObliqAmp   26.50699032661584
+dEccAmp      0.12986657932827353

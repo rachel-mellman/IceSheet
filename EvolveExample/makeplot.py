@@ -173,7 +173,7 @@ def clim_evol(plname,dir='.',xrange=False,orbit=False,show=True):
     pos = ax5.figbox.get_points()
     c = plt.contourf(body.Time,lats,insol.T,cmap='plasma')
     plt.ylabel(r'Latitude [$^\circ$]', fontsize = 10)
-    plt.title(r'Annual average insolation [W/m$^2$]', fontsize = 12)
+    plt.title(r'Annual average instellation [W/m$^2$]', fontsize = 12)
     plt.ylim(-85,85)
     plt.yticks([-60,-30,0,30,60], fontsize = 9)
     plt.xticks(fontsize = 9)
