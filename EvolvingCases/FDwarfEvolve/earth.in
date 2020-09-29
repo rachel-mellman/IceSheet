@@ -4,13 +4,17 @@ saModules   poise                       #what vplanet modules you want to use
 dMass        3.00316726e-06             #mass of planet
 dRadius      -1.00                      #radius (not important right now)
 dRotPeriod   -1.00000                   #rotation period (minus = days)
-dObliquity 70.0
-dSemi  -1.0200                          #semi-major axis (minus = AU)
-dEcc         0.0                        #eccentricity of orbit
+dObliquity 90
+bForceObliq 1                           #forces osc oblquity (0 = no, 1 = yes)
+dObliqPer 1000                          #Period of Obliq osc (in years)
+dSemi 1.02
+dEcc 0.1
+bForceEcc 1                             #forces osc eccentrisity (0 = no, 1 = yes)
+dEccPer 500                             #Period of Ecc osc (in years)
 dLongP       0                          #pericenter, wrt Earth's position at spring equinox     
 #                                        note that this is the typical value +180, 
 #                                        since that one is solar position
-dDynEllip    0.0                        #shape of planet (0 = a sphere)
+#dDynEllip    0.0                        #shape of planet (0 = a sphere)
 dPrecA 0.0                              #orientation of spin axis
 
 #_______addition disorb/distrot parameters (leave these alone for now)__________________

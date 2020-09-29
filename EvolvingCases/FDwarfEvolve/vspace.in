@@ -1,0 +1,27 @@
+srcfolder  .
+destfolder F_Monte_Carlo_lg
+trialname  semi_obl_x
+samplemode random
+randsize 10000
+seed 10
+
+
+file   sun.in
+dLuminosity 1.330716e+27
+dMass 1.48
+
+file   earth.in
+dSemi [1.55, 1.94, u] a
+dIceAlbedo 0.63
+
+dObliquity [0, 180, c] obl
+dObliqPer [1000,100000, u] oper
+
+dEcc [0.05, 0.1, g, min0.0,max1.0] e
+dEccPer [1000,100000, u] eper
+
+dPrecA [0,360, u] prea
+
+file   vpl.in
+dStopTime 10e5
+dOutputTime 10000

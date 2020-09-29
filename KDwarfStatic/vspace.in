@@ -1,5 +1,5 @@
-srcfolder  ../../Obliquity_exp/obl_xo00
-destfolder K_exp10000
+srcfolder  .
+destfolder KDwarf_exp10000
 trialname  semi_obl
 
 file   sun.in
