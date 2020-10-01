@@ -7,14 +7,15 @@ import os
 import sys
 import fileinput
 
-def rand_dist(folder_name, vspace_file):
-    vspace = open(vspace_file,"r")
-    for line in vspace:
-        line.strip().split('/n')
-        if line.startswith('seed '):
-            seedline = line.split()
-            print(seedline)
-            seed = seedline[1]
+def rand_dist(space_file):
+    with open(input_file, 'r') as vsf:
+        for newline in f:
+            datalist.append(newline.strip().split())
+            for l in datalist:
+                if l[0] == 'destfolder':
+                    folder_name = l[1]
+                if l[0] == 'seed':
+                    seed = l[1]
             print("The seed is " +  seed)
             np.random.seed(int(seed))
 

@@ -7,6 +7,6 @@ It is divided into 4 different cases:
 
  For each case there are a folder for each spectral type, and they are divided up by *starting eccentricity value*. So if you wanted to look for *Static K star simulation with eccentricity of 0.2* that would be **StaticCases/K_Star/Ecc_02**.
 
- In each of those folders is the plot generated from the data, a list file with the data, and the VSPACE input file if you would like to examine the raw data by running the simulation on your own machine. 
+ In each of those folders is the plot generated from the data, a list file with the data, and the VSPACE input file if you would like to examine the raw data by running the simulation on your own machine.
 
- **NOTE: RUNNING VPLANET FOR THE SIMULATIONS TAKES A SEVERAL HOURS DUE TO THE CLIMATE MODEL**
+ **Note: To generate the raw data you must have VPLanet installed on your machine**
