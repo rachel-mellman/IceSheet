@@ -12,7 +12,7 @@ import matplotlib.lines as mlines
 
 
 num = 100
-dest = [["/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_obl_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_ecc01_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_ecc02_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/K_Cases/K_ecc03_stat/"],["/media/caitlyn/Data_Drive1/Projects/IceBelt/G_Cases/G_obl_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/G_Cases/G_ecc01_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/G_Cases/G_ecc02_stat/"],["/media/caitlyn/Data_Drive1/Projects/IceBelt/F_Cases/F_obl_stat/","/media/caitlyn/Data_Drive1/Projects/IceBelt/F_Cases/F_ecc01_stat/"]]
+dest = [["/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc01_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc02_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc03_stat/"],["/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_ecc01_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_ecc02_stat/"],["/media/caitlyn/Data_Drive2/Projects/IceBelt/F_Cases/F_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/F_Cases/F_ecc01_stat/"]]
 style = ["solid","dashed", "dotted", "dashdot"]
 labels = ["e=0","e=0.1","e=0.2","e=0.3"]
 star = ["K Star", "G Star", "F Star"]
@@ -106,15 +106,10 @@ for i in range(len(dest)):
 
         icF = axs[i].contour(obliq0,S,icebeltL, [0.5, 1], colors = 'black', linestyles = style[ii])
 
-
-    e0 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[0],linestyle = style[0])
-    e1 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[1],linestyle = style[1])
-    e2 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[2],linestyle = style[2])
-    e3 = mlines.Line2D([],[],color = 'black',linewidth=3,label = labels[3],linestyle = style[3])
-
-    #axs[0].text(46,0.988,star[0],verticalalignment='top',horizontalalignment='right', fontsize = 12)
-    #axs[1].text(50.5,0.9925,star[1],verticalalignment='top',horizontalalignment='right', fontsize = 12)
-    #axs[2].text(54.75,0.995,star[2],verticalalignment='top',horizontalalignment='right', fontsize = 12)
+    e0 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[0],linestyle = style[0])
+    e1 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[1],linestyle = style[1])
+    e2 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[2],linestyle = style[2])
+    e3 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[3],linestyle = style[3])
 
     axs[2].set_yticks([0.925,0.95,0.975,1])
 
@@ -123,7 +118,6 @@ for i in range(len(dest)):
     axs[2].set_title("F Star", fontsize = 16)
 
     axs[0].legend(handles = [e0,e1,e2,e3], fontsize=14, loc = 'upper left', bbox_to_anchor=(0, 1.25, 1, 0.102),ncol=4, mode="expand", borderaxespad=0)
-    #bbox_to_anchor=(0., 1.2, 1., .102)
     axs[1].set_ylabel("Instellation [Earth]", fontsize=14)
     axs[2].set_xlabel("Obliquity [$^\circ$]", fontsize=14)
 
@@ -136,7 +130,7 @@ for i in range(len(dest)):
     axs[2].set_ylim(0.92,1)
 
 plt.tight_layout()
-
+os.chdir('/home/caitlyn/IceBelt/EccCompare')
 if (sys.argv[1] == 'pdf'):
     plt.savefig('EccCompare' + '.pdf')
 if (sys.argv[1] == 'png'):

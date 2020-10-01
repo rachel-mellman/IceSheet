@@ -75,7 +75,7 @@ for x in range(len(dest)):
     axs[x].plot([-80,-90],[0,0], color = 'black', linewidth = 4)
     axs[x].plot([80,90],[0,0], color = 'black', linewidth = 4)
 
-    indi_leg = mlines.Line2D([],[],color = 'gray',linewidth = 3 ,label = 'Indivdual Cases', alpha = 0.25)
+    indi_leg = mlines.Line2D([],[],color = 'gray',linewidth = 3 ,label = 'Individual Cases', alpha = 0.25)
     avg_leg = mlines.Line2D([],[],color = 'black',linewidth = 4,label = 'Average')
 
     axs[x].set_xlim(-90,90)
