@@ -15,15 +15,16 @@ dest = "KDwarfStatic"
 num = 100
 L_sun = 3.846e26
 a_earth = 1
-
-#Configures list file for ploting
 listf = "list_KDwarfStatic"
-lum0, obliq0, semi0, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(listf, unpack=True)
 
+
+# if the list file exists, extract data for plotting
+
+lum0, obliq0, semi0, inst, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(
+    listf, unpack=True)
 
 PolarCaps = np.zeros(num*num)
 MoistGreen = np.zeros(num*num)
-
 for i in np.arange(num*num):
 
     if (
@@ -42,6 +43,7 @@ for i in np.arange(num*num):
 lum0 = np.reshape(lum0, (num, num))
 obliq0 = np.reshape(obliq0, (num, num)) * 180 / np.pi
 semi0 = np.reshape(semi0, (num, num)) / 1.49598e11
+inst = np.reshape(inst, (num, num)) / 1350
 snowball = np.reshape(snowball, (num, num))
 northCapL = np.reshape(northCapL, (num, num))
 northCapS = np.reshape(northCapS, (num, num))
@@ -55,22 +57,16 @@ tGlobal = np.reshape(tGlobal, (num, num))
 PolarCaps = np.reshape(PolarCaps, (num, num))
 MoistGreen = np.reshape(MoistGreen, (num, num))
 
-
-L_sun = 3.846e26
-a_earth = 1
-S = (lum0 / (semi0**2)) / (L_sun / (a_earth**2))
-
 plt.figure(figsize=(9,6.5))
 plt.ylabel("Instellation [Earth]", fontsize=16)
 plt.xlabel("Obliquity [$^\circ$]", fontsize=16)
-plt.ylim(0.8555,1.2)
+plt.ylim(0.867,1.211)
+plt.xlim(0,90)
 
-iFF = plt.contourf(obliq0, S, iceFree, [0, 1], colors = vpl.colors.dark_blue)
-sNF = plt.contourf(obliq0, S, snowball, [0.5, 1], colors = '#efefef')
-
-PcF = plt.contourf(obliq0,S,PolarCaps, [0.5, 1], colors = vpl.colors.purple)
-icF = plt.contourf(obliq0,S,icebeltL, [0.5, 1], colors = vpl.colors.pale_blue)
-
+iFF = plt.contourf(obliq0, inst, iceFree, [0, 1], colors = vpl.colors.dark_blue)
+sNF = plt.contourf(obliq0, inst, snowball, [0.5, 1], colors = '#efefef')
+PcF = plt.contourf(obliq0,inst,PolarCaps, [0.5, 1], colors = vpl.colors.purple)
+icF = plt.contourf(obliq0,inst,icebeltL, [0.5, 1], colors = vpl.colors.pale_blue)
 
 h1, _ = iFF.legend_elements()
 h2, _ = icF.legend_elements()
@@ -78,8 +74,6 @@ h3, _ = sNF.legend_elements()
 h4, _ = PcF.legend_elements()
 
 plt.legend([h1[0], h2[0], h3[0], h4[0]], [ 'Ice Free', 'Ice Belt', 'Snowball','Polar Ice Caps'],loc = 'upper left', bbox_to_anchor=(0, 1.02, 1, 0.102),ncol=4, mode="expand", borderaxespad=0)
-
-plt.tight_layout()
 
 if (sys.argv[1] == 'pdf'):
     plt.savefig(dest + '.pdf', dpi=300)

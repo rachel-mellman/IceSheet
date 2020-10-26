@@ -17,13 +17,11 @@ L_sun = 3.846e26
 a_earth = 1
 listf = "list_FDwarfStatic"
 
-try:
-    case = next(os.walk(os.path.join(dest,'.')))[1][0]
-except StopIteration:
-    pass
 
 # if the list file exists, extract data for plotting
-lum0, obliq0, semi0, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(listf, unpack=True)
+
+lum0, obliq0, semi0, inst, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(
+    listf, unpack=True)
 
 PolarCaps = np.zeros(num*num)
 MoistGreen = np.zeros(num*num)
@@ -45,6 +43,7 @@ for i in np.arange(num*num):
 lum0 = np.reshape(lum0, (num, num))
 obliq0 = np.reshape(obliq0, (num, num)) * 180 / np.pi
 semi0 = np.reshape(semi0, (num, num)) / 1.49598e11
+inst = np.reshape(inst, (num, num)) / 1350
 snowball = np.reshape(snowball, (num, num))
 northCapL = np.reshape(northCapL, (num, num))
 northCapS = np.reshape(northCapS, (num, num))
@@ -58,21 +57,16 @@ tGlobal = np.reshape(tGlobal, (num, num))
 PolarCaps = np.reshape(PolarCaps, (num, num))
 MoistGreen = np.reshape(MoistGreen, (num, num))
 
-
-L_sun = 3.846e26
-a_earth = 1
-S = (lum0 / (semi0**2)) / (L_sun / (a_earth**2))
-
 plt.figure(figsize=(9,6.5))
 plt.ylabel("Instellation [Earth]", fontsize=16)
 plt.xlabel("Obliquity [$^\circ$]", fontsize=16)
-plt.ylim(0.925,1.20)
+plt.ylim(0.932,1.208)
+plt.xlim(0,90)
 
-iFF = plt.contourf(obliq0, S, iceFree, [0, 1], colors = vpl.colors.dark_blue)
-sNF = plt.contourf(obliq0, S, snowball, [0.5, 1], colors = '#efefef')
-PcF = plt.contourf(obliq0,S,PolarCaps, [0.5, 1], colors = vpl.colors.purple)
-icF = plt.contourf(obliq0,S,icebeltL, [0.5, 1], colors = vpl.colors.pale_blue)
-
+iFF = plt.contourf(obliq0, inst, iceFree, [0, 1], colors = vpl.colors.dark_blue)
+sNF = plt.contourf(obliq0, inst, snowball, [0.5, 1], colors = '#efefef')
+PcF = plt.contourf(obliq0,inst,PolarCaps, [0.5, 1], colors = vpl.colors.purple)
+icF = plt.contourf(obliq0,inst,icebeltL, [0.5, 1], colors = vpl.colors.pale_blue)
 
 h1, _ = iFF.legend_elements()
 h2, _ = icF.legend_elements()

@@ -9,10 +9,23 @@ import sys
 import scipy.ndimage
 from matplotlib.pyplot import figure
 import matplotlib.lines as mlines
+import math
 
 
 num = 100
-dest = [["/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc01_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc02_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/K_Cases/K_ecc03_stat/"],["/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_ecc01_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/G_Cases/G_ecc02_stat/"],["/media/caitlyn/Data_Drive2/Projects/IceBelt/F_Cases/F_obl_stat/","/media/caitlyn/Data_Drive2/Projects/IceBelt/F_Cases/F_ecc01_stat/"]]
+dest = [
+["/media/caitlyn/Data_Drive4/Projects/IceBelt/K_Cases/K_obl_stat_large/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/K_Cases/K_ecc01_stat/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/K_Cases/K_ecc02_stat/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/K_Cases/K_ecc03_stat/"],
+
+["/media/caitlyn/Data_Drive4/Projects/IceBelt/G_Cases/G_obl_stat_large/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/G_Cases/G_ecc01_stat/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/G_Cases/G_ecc02_stat/"],
+
+["/media/caitlyn/Data_Drive4/Projects/IceBelt/F_Cases/F_obl_stat_large/",
+"/media/caitlyn/Data_Drive4/Projects/IceBelt/F_Cases/F_ecc01_stat/"]
+]
 style = ["solid","dashed", "dotted", "dashdot"]
 labels = ["e=0","e=0.1","e=0.2","e=0.3"]
 star = ["K Star", "G Star", "F Star"]
@@ -22,7 +35,7 @@ fig.subplots_adjust(top=0.913,bottom=0.079,left=0.14,right=0.952,hspace=0.35,wsp
 
 for i in range(len(dest)):
     for ii in range(len(dest[i])):
-
+        print(dest[i][ii])
         try:
             case = next(os.walk(os.path.join(dest[i][ii],'.')))[1][0]
         except StopIteration:
@@ -35,15 +48,13 @@ for i in range(len(dest)):
 
         # if the list file exists, extract data for plotting
         if os.path.exists(listf):
-            lum0, obliq0, semi0, albedo_f, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree = np.loadtxt(
-                listf, unpack=True)
-
+            lum0, obliq0, semi0, inst, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(listf, unpack=True)
         else:
 
             lum0 = np.zeros(len(folders))
             obliq0 = np.zeros(len(folders))
             semi0 = np.zeros(len(folders))
-            albedo_f = np.zeros(len(folders))
+            inst = np.zeros(len(folders))
             snowball = np.zeros(len(folders))
             northCapL = np.zeros(len(folders))
             northCapS = np.zeros(len(folders))
@@ -52,15 +63,17 @@ for i in range(len(dest)):
             icebeltL = np.zeros(len(folders))
             icebeltS = np.zeros(len(folders))
             iceFree = np.zeros(len(folders))
+            tGlobal = np.zeros(len(folders))
 
             crap = open(listf, "w")
             for i in np.arange(len(folders)):
                 f = folders[i].decode('UTF-8')
+                print(f)
                 out = vpl.GetOutput(f)
                 lum0[i] = getattr(out.log.initial, 'sun').Luminosity
                 obliq0[i] = getattr(out.log.initial, 'earth').Obliquity
                 semi0[i] = getattr(out.log.initial, 'earth').SemiMajorAxis
-                albedo_f[i] = out.earth.AlbedoGlobal[-1]
+                inst[i] = getattr(out.log.final, 'earth').Instellation
 
                 snowball[i] = getattr(out.log.final, 'earth').Snowball
 
@@ -75,6 +88,8 @@ for i in range(len(dest)):
 
                 iceFree[i] = getattr(out.log.final, 'earth').IceFree
 
+                tGlobal[i] = getattr(out.log.final, 'earth').TGlobal
+
                 if snowball[i] == 1:
                     icebeltL[i] = 0
                     icebeltS[i] = 0
@@ -84,13 +99,14 @@ for i in range(len(dest)):
                     southCapS[i] = 0
                     iceFree[i] = 0
 
-                crap.write("%s %s %s %s %s %s %s %s %s %s %s %s \n" % (
-                    lum0[i], obliq0[i], semi0[i], albedo_f[i], snowball[i], northCapL[i], northCapS[i], southCapL[i], southCapS[i], icebeltL[i], icebeltS[i], iceFree[i]))
+                crap.write("%s %s %s %s %s %s %s %s %s %s %s %s %s \n" % (
+                    lum0[i], obliq0[i], semi0[i], inst[i], snowball[i], northCapL[i], northCapS[i], southCapL[i], southCapS[i], icebeltL[i], icebeltS[i], iceFree[i], tGlobal[i]))
+
 
         lum0 = np.reshape(lum0, (num, num))
         obliq0 = np.reshape(obliq0, (num, num)) * 180 / np.pi
         semi0 = np.reshape(semi0, (num, num)) / 1.49598e11
-        albedo_f = np.reshape(albedo_f, (num, num))
+        inst = np.reshape(inst, (num, num)) / 1350
         snowball = np.reshape(snowball, (num, num))
         northCapL = np.reshape(northCapL, (num, num))
         northCapS = np.reshape(northCapS, (num, num))
@@ -99,12 +115,9 @@ for i in range(len(dest)):
         icebeltL = np.reshape(icebeltL, (num, num))
         icebeltS = np.reshape(icebeltS, (num, num))
         iceFree = np.reshape(iceFree, (num, num))
+        tGlobal = np.reshape(tGlobal, (num, num))
 
-        L_sun = 3.846e26
-        a_earth = 1
-        S = (lum0 / (semi0**2)) / (L_sun / (a_earth**2))
-
-        icF = axs[i].contour(obliq0,S,icebeltL, [0.5, 1], colors = 'black', linestyles = style[ii])
+        icF = axs[i].contour(obliq0,inst,icebeltL, [0.5, 1], colors = 'black', linestyles = style[ii])
 
     e0 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[0],linestyle = style[0])
     e1 = mlines.Line2D([],[],color = 'black',linewidth=2,label = labels[1],linestyle = style[1])
@@ -122,12 +135,12 @@ for i in range(len(dest)):
     axs[2].set_xlabel("Obliquity [$^\circ$]", fontsize=14)
 
     axs[0].set_xlim(40,90)
-    axs[1].set_xlim(45,90)
-    axs[2].set_xlim(50,90)
+    axs[1].set_xlim(40,90)
+    axs[2].set_xlim(40,90)
 
-    axs[0].set_ylim(0.82,1)
-    axs[1].set_ylim(0.88,1)
-    axs[2].set_ylim(0.92,1)
+    axs[0].set_ylim(0.838,1.013)
+    axs[1].set_ylim(0.893,1.013)
+    axs[2].set_ylim(0.935,1.013)
 
 plt.tight_layout()
 os.chdir('/home/caitlyn/IceBelt/EccCompare')
