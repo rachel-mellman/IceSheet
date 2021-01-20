@@ -8,54 +8,77 @@ import vplot as vpl
 import os
 import sys
 import matplotlib.patches as mpatches
+#bigplanet imports
+from bigplanet import ExtractColumn
+from bigplanet import ExtractUniqueValues
+from bigplanet import CreateMatrix
+from bigplanet import CreateHDF5file
+import h5py
 
+#changes cwd to where the file is
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-#Variable List
+#Variable list
 dest = "KDwarfStatic"
-num = 100
-L_sun = 3.846e26
-a_earth = 1
-listf = "list_KDwarfStatic"
+CreateHDF5file('vspace.in')
+HDF5_File = h5py.File('KDwarfStatic.hdf5', 'r')
+
+#grabs columns needed for calulations and data
+earth_Obliq = ExtractColumn(HDF5_File,'earth_Obliquity_final')
+earth_instel = ExtractColumn(HDF5_File,'earth_Instellation_final')
+
+earth_icebelt_L = ExtractColumn(HDF5_File,'earth_IceBeltLand_final')
+earth_icebelt_S = ExtractColumn(HDF5_File,'earth_IceBeltSea_final')
+earth_northcap_L = ExtractColumn(HDF5_File,'earth_IceCapNorthLand_final')
+earth_northcap_S = ExtractColumn(HDF5_File,'earth_IceCapNorthSea_final')
+earth_southcap_L = ExtractColumn(HDF5_File,'earth_IceCapSouthLand_final')
+earth_southcap_S = ExtractColumn(HDF5_File,'earth_IceCapSouthSea_final')
+
+earth_icefree = ExtractColumn(HDF5_File,'earth_IceFree_final')
+earth_snowball = ExtractColumn(HDF5_File,'earth_Snowball_final')
 
 
-# if the list file exists, extract data for plotting
+#gets the x and y axis data
+earth_Obliq_uniq = ExtractUniqueValues(HDF5_File,'earth_Obliquity_forward')
+earth_intstel_uniq = ExtractUniqueValues(HDF5_File,'earth_Instellation_final')
 
-lum0, obliq0, semi0, inst, snowball, northCapL, northCapS, southCapL, southCapS, icebeltL, icebeltS, iceFree, tGlobal = np.loadtxt(
-    listf, unpack=True)
+#changing units of y axis
+earth_intstel_uniq =  np.reshape(earth_intstel_uniq,(earth_intstel_uniq.shape)) / 1350
 
-PolarCaps = np.zeros(num*num)
-MoistGreen = np.zeros(num*num)
-for i in np.arange(num*num):
+# Fixing bug in vplanet where if snowball == 1 that sometimes other variables
+# can also equal 1
+for i in range(len(earth_snowball)):
+    if earth_snowball[i] == 1.0:
+        earth_icebelt_L[i] = 0
+        earth_northcap_L[i] = 0
+        earth_northcap_S[i] = 0
+        earth_southcap_L[i] = 0
+        earth_southcap_S[i] = 0
+
+#creates a new numpy array that is for Polar Caps
+PolarCaps = np.zeros(len(earth_northcap_L))
+for i in range(len(PolarCaps)):
 
     if (
-    northCapL[i] == 1 and southCapL[i] == 1 and icebeltS[i] == 0 and icebeltL[i] == 0 or
-    northCapS[i] == 1 and northCapL[i] == 1 and southCapS[i] == 1 and southCapL[i] == 1 and icebeltS[i] == 0 and icebeltL[i] == 0 or
-    northCapS[i] == 1 and southCapS[i] == 1 and icebeltS[i] == 0 and icebeltL[i] == 0 or
-    northCapL[i] == 1 and southCapS[i] == 1 and icebeltS[i] == 0 and icebeltL[i] == 0 or
-    northCapS[i] == 1 and southCapL[i] == 1 and icebeltS[i] == 0 and icebeltL[i] == 0
+    earth_northcap_L[i] == 1 and earth_southcap_L[i] == 1 and
+    earth_icebelt_S[i] == 0 and earth_icebelt_L[i] == 0 or
+    earth_northcap_S[i] == 1 and earth_northcap_L[i] == 1 and
+    earth_southcap_S[i] == 1 and earth_southcap_L[i] == 1 and
+    earth_icebelt_S[i] == 0 and earth_icebelt_L[i] == 0 or
+    earth_northcap_S[i] == 1 and earth_southcap_S[i] == 1 and
+    earth_icebelt_S[i] == 0 and earth_icebelt_L[i] == 0 or
+    earth_northcap_L[i] == 1 and earth_southcap_S[i] == 1 and
+    earth_icebelt_S[i] == 0 and earth_icebelt_L[i] == 0 or
+    earth_northcap_S[i] == 1 and earth_southcap_L[i] == 1 and
+    earth_icebelt_S[i] == 0 and earth_icebelt_L[i] == 0
     ):
         PolarCaps[i] = 1
 
-    if tGlobal[i] >= 70 and iceFree[i] == 1:
-        MoistGreen[i] = 1
-
-
-lum0 = np.reshape(lum0, (num, num))
-obliq0 = np.reshape(obliq0, (num, num)) * 180 / np.pi
-semi0 = np.reshape(semi0, (num, num)) / 1.49598e11
-inst = np.reshape(inst, (num, num)) / 1350
-snowball = np.reshape(snowball, (num, num))
-northCapL = np.reshape(northCapL, (num, num))
-northCapS = np.reshape(northCapS, (num, num))
-southCapL = np.reshape(southCapL, (num, num))
-southCapS = np.reshape(southCapS, (num, num))
-icebeltL = np.reshape(icebeltL, (num, num))
-icebeltS = np.reshape(icebeltS, (num, num))
-iceFree = np.reshape(iceFree, (num, num))
-tGlobal = np.reshape(tGlobal, (num, num))
-
-PolarCaps = np.reshape(PolarCaps, (num, num))
-MoistGreen = np.reshape(MoistGreen, (num, num))
+#creates the zaxis for plotting
+icebeltmatrix = CreateMatrix(earth_Obliq_uniq, earth_intstel_uniq, earth_icebelt_L)
+icefreematrix = CreateMatrix(earth_Obliq_uniq, earth_intstel_uniq, earth_icefree)
+snowballmatrix = CreateMatrix(earth_Obliq_uniq, earth_intstel_uniq, earth_snowball)
+Capsmatrix = CreateMatrix(earth_Obliq_uniq, earth_intstel_uniq, PolarCaps)
 
 plt.figure(figsize=(9,6.5))
 plt.ylabel("Instellation [Earth]", fontsize=16)
@@ -63,10 +86,10 @@ plt.xlabel("Obliquity [$^\circ$]", fontsize=16)
 plt.ylim(0.867,1.211)
 plt.xlim(0,90)
 
-iFF = plt.contourf(obliq0, inst, iceFree, [0, 1], colors = vpl.colors.dark_blue)
-sNF = plt.contourf(obliq0, inst, snowball, [0.5, 1], colors = '#efefef')
-PcF = plt.contourf(obliq0,inst,PolarCaps, [0.5, 1], colors = vpl.colors.purple)
-icF = plt.contourf(obliq0,inst,icebeltL, [0.5, 1], colors = vpl.colors.pale_blue)
+iFF = plt.contourf(earth_Obliq_uniq,earth_intstel_uniq,icefreematrix,[0,1],colors = vpl.colors.dark_blue)
+sNF = plt.contourf(earth_Obliq_uniq,earth_intstel_uniq,snowballmatrix,[0.5,1],colors = '#efefef')
+PcF = plt.contourf(earth_Obliq_uniq,earth_intstel_uniq,Capsmatrix,[0.5,1],colors = vpl.colors.purple)
+icF = plt.contourf(earth_Obliq_uniq,earth_intstel_uniq,icebeltmatrix,[0.5,1],colors = vpl.colors.pale_blue)
 
 h1, _ = iFF.legend_elements()
 h2, _ = icF.legend_elements()
