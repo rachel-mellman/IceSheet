@@ -1,0 +1,14 @@
+srcfolder  .
+destfolder FDwarf_exp10000
+trialname  semi_obl
+
+file   sun.in
+dLuminosity 1.330716e+27
+dMass 1.48
+
+file   earth.in
+dObliquity [0, 90, n100] obl
+dSemi [1.55,1.94,n100]
+dIceAlbedo 0.63
+
+file   vpl.in

@@ -1,0 +1,12 @@
+srcfolder .
+destfolder GDwarf_exp10000
+trialname  semi_obl
+
+file   sun.in
+dLuminosity 3.846e26
+
+file   earth.in
+dObliquity [0, 90, n100] obl
+dSemi [0.83,1.07,n100]
+
+file   vpl.in

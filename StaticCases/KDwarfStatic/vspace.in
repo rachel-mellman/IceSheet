@@ -1,0 +1,14 @@
+srcfolder  .
+destfolder KDwarf_exp10000
+trialname  semi_obl
+
+file   sun.in
+dLuminosity [1.634236e26,9.6700357e25, n100] lum
+dMass 0.82
+
+file   earth.in
+dObliquity [35, 90, n100] obl
+dSemi 0.58
+dIceAlbedo 0.55
+
+file   vpl.in
